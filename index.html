@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Year Animation</title>
+<style>
+  body { margin:0; overflow:hidden; background:black; font-family:sans-serif; }
+
+  /* Right-to-left emoji */
+  #turtle {
+    position:absolute;
+    bottom:100px;
+    right:-50px; /* start offscreen to the right */
+    font-size:50px;
+    transition:right 5s linear;
+  }
+
+  #curtain-left, #curtain-right {
+    position:absolute; top:0; width:50%; height:100%; background:blue; z-index:5; transition: all 2s; 
+  }
+  #curtain-left { left:0; }
+  #curtain-right { right:0; }
+
+  #text {
+    position:absolute;
+    top:40%;
+    width:100%;
+    text-align:center;
+    font-size:2em;
+    color:white;
+    opacity:0;
+    transition:opacity 2s;
+  }
+
+  #credit { position:absolute; bottom:5px; right:10px; color:white; font-size:0.8em; }
+
+  .firework {
+    position:absolute; width:5px; height:5px; border-radius:50%; background:yellow;
+    animation: explode 1s linear infinite;
+  }
+
+  @keyframes explode {
+    0% { transform: scale(0) translateY(0px); opacity:1; }
+    50% { transform: scale(1.5) translateY(-30px); opacity:1; }
+    100% { transform: scale(0) translateY(-60px); opacity:0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="curtain-left"></div>
+<div id="curtain-right"></div>
+
+
+<div id="turtle">🐢</div>
+
+<div id="text">🫶🎆🎇 HAPPY NEW YEAR 🎇🎆🫶 </div>
+<div id="credit">By Div._.ya</div>
+
+<script>
+  // Open curtains
+  setTimeout(()=> {
+    document.getElementById('curtain-left').style.left = '-50%';
+    document.getElementById('curtain-right').style.right = '-50%';
+  }, 1000);
+
+ 
+  
+
+  // Move turtle right-to-left
+  setTimeout(()=> {
+    document.getElementById('turtle').style.right = 'calc(100% + 50px)';
+  }, 2500);
+
+  // Show New Year text
+  setTimeout(()=> {
+    document.getElementById('text').style.opacity = 1;
+  }, 4000);
+
+  // Fireworks
+  function createFirework() {
+    const f = document.createElement('div');
+    f.className = 'firework';
+    f.style.left = Math.random()*window.innerWidth + 'px';
+    f.style.top = Math.random()*window.innerHeight/2 + 'px';
+    f.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    document.body.appendChild(f);
+    setTimeout(()=> f.remove(),1000);
+  }
+  setInterval(createFirework, 300);
+</script>
+
+</body>
+</html>
